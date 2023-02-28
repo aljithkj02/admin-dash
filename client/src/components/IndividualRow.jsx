@@ -33,7 +33,6 @@ const IndividualRow = ({ userData, updateChanges }) => {
                 })
             }
             updateChanges();
-            console.log(res);
         } catch (err) {
             console.log(err.response.data.message);
             toast({

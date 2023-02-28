@@ -37,7 +37,7 @@ const UserDashboard = ({ data }) => {
                     isClosable: true,
                 })
             }
-            console.log(res);
+            // console.log(res);
         } catch (err) {
             console.log(err.response.data.message);
             toast({
@@ -45,6 +45,9 @@ const UserDashboard = ({ data }) => {
                 position: 'top',
                 status: 'error',
                 isClosable: true,
+            })
+            setDetails({
+                name, email, password
             })
         }
     }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useToast, Text } from '@chakra-ui/react'
 import axios from 'axios'
-import { AdminDashboard, UserDashboard } from '../components'
+import { AdminDashboard, UserDashboard, Loader } from '../components'
 import config from '../config'
 
 const Dashboard = () => {
@@ -54,7 +54,7 @@ const Dashboard = () => {
 
     return (
         <>
-            { (loading) ? <Text> Loading... </Text> : null }
+            { (loading) ? <Loader/> : null }
             { (role === 'user') ? <UserDashboard data={ data }/> : null }
             { (role === 'admin') ? <AdminDashboard data={ data } 
                 updateChanges={ updateChanges } debouncer={ debouncer } /> : null }
