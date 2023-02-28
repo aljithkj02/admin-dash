@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import config from '../config'
 
-const Signup = () => {
+const AdminSignup = () => {
     const [ details, setDetails ] = useState({
         name: '',
         email: '',
@@ -28,7 +28,7 @@ const Signup = () => {
     const signupUser = async (e) => {
         e.preventDefault(); 
         try {
-            let res = await axios.post(`${config.API_URL}/api/auth/signup`, {...details, role: 'user'});
+            let res = await axios.post(`${config.API_URL}/api/auth/signup`, {...details, role: 'admin'});
             if(res.data.success){
                 localStorage.setItem('token', res.data.token);
                 toast({
@@ -51,7 +51,7 @@ const Signup = () => {
   return (
     <Container p="20px" display="flex" alignItems="center" h="100vh" >
         <Box w="full" boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px" p="4rem 3rem" borderRadius="10px">
-            <Heading size='md' fontSize="30px" >Signup</Heading>
+            <Heading size='md' fontSize="30px" >Admin Signup</Heading>
             <form onSubmit={ signupUser }>
                 <Input name="name" mt="6" type="text" variant='flushed' placeholder="Name" 
                     onChange={ storeDetails } required={true}
@@ -90,4 +90,4 @@ const Signup = () => {
   )
 }
 
-export default Signup
+export default AdminSignup

@@ -24,9 +24,28 @@ const Login = () => {
         })
     } 
 
-    const loginUser = (e) => {
-        e.preventDefault();
-        console.log(details)
+    const loginUser = async (e) => {
+        e.preventDefault(); 
+        try {
+            let res = await axios.post(`${config.API_URL}/api/auth/login`, { ...details });
+            if(res.data.success){
+                localStorage.setItem('token', res.data.token);
+                toast({
+                    title: res.data.message,
+                    position: 'top',
+                    status: 'success',
+                    isClosable: true,
+                })
+            }
+        } catch (err) {
+            console.log(err.response.data.message);
+            toast({
+                title: err.response.data.message,
+                position: 'top',
+                status: 'error',
+                isClosable: true,
+            })
+        }  
     }
   return (
     <Container p="20px" display="flex" alignItems="center" h="100vh" >
