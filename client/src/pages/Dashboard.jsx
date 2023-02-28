@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useToast, Text } from '@chakra-ui/react'
 import axios from 'axios'
 import { AdminDashboard, UserDashboard } from '../components'
@@ -9,16 +9,18 @@ const Dashboard = () => {
     const [role, setRole] = useState('');
     const [loading, setLoading] = useState(false);
     const [updateUi, setUpdateUi ] = useState(false);
+    const debouncerId = useRef(null);
+
     useEffect(() => {
         setLoading(true);
         fetchData();
     }, [updateUi]);
     const toast = useToast()
 
-    const fetchData = async () => {
+    const fetchData = async (query) => {
         try {
             const token = localStorage.getItem('token') || 'token';
-            let res = await axios.get(`${config.API_URL}/api/users`, {
+            let res = await axios.get(`${config.API_URL}/api/users/${query}`, {
                 headers: {
                     'authorization': `Bearer ${token}`
                 }
@@ -35,6 +37,17 @@ const Dashboard = () => {
         } 
     }
 
+    const debouncer = (query) => {
+        debouncerId.current && clearTimeout(debouncerId.current);
+        debouncerId.current = setTimeout(() => {
+            if(query === ''){
+                fetchData('undefined');
+            }else{
+                fetchData(query);
+            }
+        }, 1000)
+    }
+
     const updateChanges = () => {
         setUpdateUi(!updateUi);
     }
@@ -43,7 +56,8 @@ const Dashboard = () => {
         <>
             { (loading) ? <Text> Loading... </Text> : null }
             { (role === 'user') ? <UserDashboard data={ data }/> : null }
-            { (role === 'admin') ? <AdminDashboard data={ data } updateChanges={ updateChanges } /> : null }
+            { (role === 'admin') ? <AdminDashboard data={ data } 
+                updateChanges={ updateChanges } debouncer={ debouncer } /> : null }
         </>
     )
 }

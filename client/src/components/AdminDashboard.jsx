@@ -1,15 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { Box, Text, Heading, Container, Button, Input, useToast
     , TableContainer, Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react'
 import axios from 'axios'
 import IndividualRow from './IndividualRow';
 import config from '../config'
 
-const AdminDashboard = ({ data, updateChanges }) => {
-    // console.log(data);
+const AdminDashboard = ({ data, updateChanges, debouncer }) => {
+
+    const searchUser = (e) => {
+        debouncer(e.target.value);
+    }
+
   return (
-    <Container maxW='container.lg' py="2rem" textAlign="center">
+    <Container maxW='container.lg' py="1rem" textAlign="center">
         <Heading size='md' fontSize="30px" >Admin Dashboard</Heading>
+
+        <Input mt="1rem" placeholder="search for users by name or email address" 
+            variant='filled' onChange={ searchUser }
+        />
+
         <Box boxShadow="rgba(0, 0, 0, 0.24) 0px 3px 8px" mt="2rem">
             <TableContainer maxWidth="100%" p="2rem">
                 <Table variant='simple'>
