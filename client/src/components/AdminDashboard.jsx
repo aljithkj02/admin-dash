@@ -2,7 +2,8 @@ import React from 'react'
 import { Box, Text, Heading, Container, Button, Input, useToast
     , TableContainer, Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react'
 
-const AdminDashboard = () => {
+const AdminDashboard = ({ data }) => {
+    console.log(data);
   return (
     <Container maxW='container.lg' py="2rem" textAlign="center">
         <Heading size='md' fontSize="30px" >Admin Dashboard</Heading>

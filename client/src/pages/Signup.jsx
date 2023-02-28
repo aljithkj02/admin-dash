@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Box, Text, Heading, Container, Button, Input, useToast
     , InputGroup, InputRightElement } from '@chakra-ui/react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useDispatch } from 'react-redux';
 import config from '../config'
@@ -16,6 +16,7 @@ const Signup = () => {
     
     const [show, setShow] = useState(false)
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const toast = useToast()
     
     const handleClick = () => setShow(!show);
@@ -40,6 +41,7 @@ const Signup = () => {
                     status: 'success',
                     isClosable: true,
                 })
+                navigate('/dashboard');
             }
         } catch (err) {
             console.log(err.response.data.message);
