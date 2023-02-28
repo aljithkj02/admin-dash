@@ -16,6 +16,12 @@ export const signupUser = async (req, res) => {
                 message: 'User with this email already exist!'
             })
         }
+        if(!email.includes('@') || !email.includes('.com')){
+            return res.status(404).json({
+                success: false,
+                message: 'Email is not valid!'
+            })
+        }
         if(password.includes(' ')){
             return res.status(404).json({
                 success: false,

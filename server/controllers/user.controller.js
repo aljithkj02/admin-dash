@@ -3,25 +3,40 @@ import User from '../models/user.model.js';
 
 export const getData = async (req, res) => {   
     try {
+        const { query } = req.params;
         const user = req.user;
         const role = user.role;
-        if(role === 'user'){
-            const data = {
-                name: user.name,
-                email: user.email,
-                password: user.password
+
+        if(query === 'undefined'){
+            if(role === 'user'){
+                const data = {
+                    name: user.name,
+                    email: user.email,
+                    password: user.password
+                }
+                return res.status(200).send({
+                    success: true,
+                    message: 'Successful!',
+                    dashboard: 'user',
+                    data
+                })
             }
-            return res.status(200).send({
-                success: true,
-                message: 'Successful!',
-                dashboard: 'user',
-                data
-            })
-        }
 
-        if(role === 'admin'){
-            let data = await User.find({ _id: { $not: { $in: [user._id]} }});
+            if(role === 'admin'){
+                let data = await User.find({ _id: { $not: { $in: [user._id]} }});
 
+                return res.status(200).send({
+                    success: true,
+                    message: 'Successful!',
+                    dashboard: 'admin',
+                    data
+                })
+            }
+        }else{
+            let data = await User.find({ $or: [
+                { name: { $regex: query, $options: "$i" }},
+                { email: { $regex: query, $options: "$i" }}
+            ]})
             return res.status(200).send({
                 success: true,
                 message: 'Successful!',
@@ -29,6 +44,7 @@ export const getData = async (req, res) => {
                 data
             })
         }
+
     } catch (err) {
         res.status(500).json({
             success: false,

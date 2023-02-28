@@ -4,7 +4,7 @@ import { getData, updateUser, updateRole } from '../controllers/user.controller.
 
 const router = Router();
 
-router.get('/', authorize, getData );
+router.get('/:query', authorize, getData );
 
 router.patch('/update-user', authorize, updateUser );
 
