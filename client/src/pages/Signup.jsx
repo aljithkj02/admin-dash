@@ -4,6 +4,7 @@ import { Box, Text, Heading, Container, Button, Input, useToast
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useDispatch } from 'react-redux';
+import { Loader } from '../components';
 import config from '../config'
 import { login } from '../redux/authReducer/action';
 
@@ -14,6 +15,7 @@ const Signup = () => {
         password: ''
     })
     
+    const [loading, setLoading] = useState(false);
     const [show, setShow] = useState(false)
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -30,6 +32,7 @@ const Signup = () => {
 
     const signupUser = async (e) => {
         e.preventDefault(); 
+        setLoading(true);
         try {
             let res = await axios.post(`${config.API_URL}/api/auth/signup`, {...details, role: 'user'});
             if(res.data.success){
@@ -41,6 +44,7 @@ const Signup = () => {
                     status: 'success',
                     isClosable: true,
                 })
+                setLoading(false);
                 navigate('/');
             }
         } catch (err) {
@@ -51,10 +55,12 @@ const Signup = () => {
                 status: 'error',
                 isClosable: true,
             })
+            setLoading(false);
         }    
     }
   return (
     <Container p="20px" display="flex" alignItems="center" h="100vh" >
+        {loading && <Loader />}
         <Box w="full" boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px" p="4rem 3rem" borderRadius="10px">
             <Heading size='md' fontSize="30px" >Signup</Heading>
             <form onSubmit={ signupUser }>
