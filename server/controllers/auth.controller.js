@@ -16,6 +16,12 @@ export const signupUser = async (req, res) => {
                 message: 'User with this email already exist!'
             })
         }
+        if(password.length < 6){
+            return res.status(404).json({
+                success: false,
+                message: 'User password should be atleast 6 characters!!'
+            })
+        }
         const user = await User.create({ name, email, password, role });
         const userObj = {
             _id: user._id,
@@ -35,7 +41,7 @@ export const signupUser = async (req, res) => {
     }
 }
 
-export const loginUser = async () => {
+export const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
         let existingUser = await User.findOne({ email });

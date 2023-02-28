@@ -19,6 +19,7 @@ app.get('/', (req, res) => {
 app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);
 
+
 const startServer = () => {
     app.listen(process.env.PORT, async () => {
         console.log(`Server started, Listening to localhost:${process.env.PORT}`);
