@@ -7,7 +7,7 @@ export const login = (token) => (dispatch, getState) => {
     })
 }
 
-export const logout = (token) => (dispatch, getState) => {
+export const logout = () => (dispatch, getState) => {
     localStorage.removeItem('token');
     return dispatch({
         type: 'LOGOUT'

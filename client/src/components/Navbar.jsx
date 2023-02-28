@@ -1,10 +1,16 @@
 import React from 'react'
 import { Box, Text, useToast, Button } from '@chakra-ui/react'
-import { useSelector } from  'react-redux'
+import { useSelector, useDispatch } from  'react-redux'
 import { Link } from 'react-router-dom'
+import { logout } from '../redux/authReducer/action'
 
 const Navbar = () => {
     const { isAuth } = useSelector( data => data );
+    const dispatch = useDispatch();
+
+    const logoutUser = () => {
+        dispatch(logout());
+    }
   return (
     <nav>
         <Box bgColor="black" p="20px 60px" display="flex" justifyContent="space-between" >
@@ -13,7 +19,7 @@ const Navbar = () => {
             </Box>
             {
                 (isAuth) ? (
-                    <Button >Logout</Button>
+                    <Button onClick={ logoutUser } size="sm" m="0">Logout</Button>
                 ) : (
                     <Box display="flex" gap="60px">
                         <Box display="flex" gap="60px">
