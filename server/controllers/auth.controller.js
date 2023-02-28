@@ -16,6 +16,12 @@ export const signupUser = async (req, res) => {
                 message: 'User with this email already exist!'
             })
         }
+        if(password.includes(' ')){
+            return res.status(404).json({
+                success: false,
+                message: 'User password should not contains empty space!!'
+            })
+        }
         if(password.length < 6){
             return res.status(404).json({
                 success: false,
