@@ -40,7 +40,7 @@ const Login = () => {
                     status: 'success',
                     isClosable: true,
                 })
-                navigate('/dashboard');
+                navigate('/');
             }
         } catch (err) {
             console.log(err.response.data.message);

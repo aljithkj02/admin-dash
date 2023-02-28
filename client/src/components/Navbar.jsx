@@ -15,7 +15,7 @@ const Navbar = () => {
     <nav>
         <Box bgColor="black" p="20px 60px" display="flex" justifyContent="space-between" >
             <Box>
-                <Link style={{ color: 'white'}} to='/dashboard'>Dashboard</Link>
+                <Link style={{ color: 'white'}} to='/'>Dashboard</Link>
             </Box>
             {
                 (isAuth) ? (

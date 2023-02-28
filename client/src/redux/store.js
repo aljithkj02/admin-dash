@@ -4,6 +4,6 @@ import authReducer from './authReducer/reducer';
 
 const store = createStore(authReducer, applyMiddleware(thunk));
 
-store.subscribe(()=> console.log(store.getState()));
+// store.subscribe(()=> console.log(store.getState()));
 
 export default store;
