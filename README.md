@@ -14,7 +14,7 @@
 <br/>
 
 ## Usage
-<p>• To start the server, navigate to the server directory in the terminal/command prompt and run the command npm run server. Before running the server, you'll need to create a .env file in the root folder of the project and add the following environment variables:</p>
+<p>• To start the server, navigate to the server directory in the terminal/command prompt and run the command "npm run server". Before running the server, you'll need to create a .env file in the root folder of the project and add the following environment variables:</p>
 <p>- PORT: The port number that the server should listen on.</p>
 <p>- MONGO_URL: The URL of the MongoDB database that the server should connect to.</p>
 <p>- JWT_CLIENT_SECRET: A secret key that the server will use to sign and verify JSON Web Tokens (JWTs).</p>
@@ -44,7 +44,7 @@
 <br/>
 <br/>
 
-### the login page allows both normal users and admin users to log in to the system.
+### The login page allows both normal users and admin users to log in to the system.
 <img src="./images/loginuser.png" />
 
 <br/>
