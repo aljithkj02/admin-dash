@@ -8,10 +8,11 @@ const Dashboard = () => {
     const [data, setData] = useState([]);
     const [role, setRole] = useState('');
     const [loading, setLoading] = useState(false);
+    const [updateUi, setUpdateUi ] = useState(false);
     useEffect(() => {
         setLoading(true);
         fetchData();
-    }, []);
+    }, [updateUi]);
     const toast = useToast()
 
     const fetchData = async () => {
@@ -34,11 +35,15 @@ const Dashboard = () => {
         } 
     }
 
+    const updateChanges = () => {
+        setUpdateUi(!updateUi);
+    }
+
     return (
         <>
             { (loading) ? <Text> Loading... </Text> : null }
             { (role === 'user') ? <UserDashboard data={ data }/> : null }
-            { (role === 'admin') ? <AdminDashboard data={ data } /> : null }
+            { (role === 'admin') ? <AdminDashboard data={ data } updateChanges={ updateChanges } /> : null }
         </>
     )
 }

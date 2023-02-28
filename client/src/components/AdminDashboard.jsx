@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Box, Text, Heading, Container, Button, Input, useToast
     , TableContainer, Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react'
+import axios from 'axios'
+import IndividualRow from './IndividualRow';
+import config from '../config'
 
-const AdminDashboard = ({ data }) => {
-    console.log(data);
+const AdminDashboard = ({ data, updateChanges }) => {
+    // console.log(data);
   return (
     <Container maxW='container.lg' py="2rem" textAlign="center">
         <Heading size='md' fontSize="30px" >Admin Dashboard</Heading>
@@ -18,33 +21,13 @@ const AdminDashboard = ({ data }) => {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        <Tr>
-                            <Td>Aljith KJ</Td>
-                            <Td>User</Td>
-                            <Td textAlign='center'>
-                                <Button bgColor='transparent'>
-                                    Edit
-                                </Button>
-                            </Td>
-                        </Tr>
-                        <Tr>
-                            <Td>Aljith KJ</Td>
-                            <Td>User</Td>
-                            <Td textAlign='center'>
-                                <Button bgColor='transparent'>
-                                    Edit
-                                </Button>
-                            </Td>
-                        </Tr>
-                        <Tr>
-                            <Td>Aljith KJ</Td>
-                            <Td>User</Td>
-                            <Td textAlign='center'>
-                                <Button bgColor='transparent'>
-                                    Edit
-                                </Button>
-                            </Td>
-                        </Tr>
+
+                        {
+                            data.map((userData) => {
+                                return <IndividualRow key={ userData._id } userData={ userData } updateChanges={ updateChanges } />
+                            })
+                        }
+
                     </Tbody>
                 </Table>
             </TableContainer>
