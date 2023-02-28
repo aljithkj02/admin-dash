@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Box, Text, Heading, Container, Button, Input, useToast
     , InputGroup, InputRightElement } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
+import config from '../config'
 
 const Signup = () => {
     const [ details, setDetails ] = useState({
@@ -23,9 +25,16 @@ const Signup = () => {
         })
     } 
 
-    const signupUser = (e) => {
-        e.preventDefault();
-        console.log(details)
+    const signupUser = async (e) => {
+        e.preventDefault(); 
+        try {
+            let res = await axios.post(`${config.API_URL}/api/auth/signup`, {...details, role: 'user'});
+            if(res.data.success){
+                localStorage.setItem('token', res.data.token);
+            }
+        } catch (err) {
+            console.log(err);
+        }    
     }
   return (
     <Container p="20px" display="flex" alignItems="center" h="100vh" >
