@@ -8,8 +8,8 @@ function App() {
 
   return (
     <ChakraProvider>
-      <Navbar />
-       <AllRoutes />
+        <Navbar />
+        <AllRoutes />
     </ChakraProvider>
   )
 }

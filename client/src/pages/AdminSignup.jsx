@@ -3,7 +3,9 @@ import { Box, Text, Heading, Container, Button, Input, useToast
     , InputGroup, InputRightElement } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { useDispatch } from 'react-redux';
 import config from '../config'
+import { login } from '../redux/authReducer/action';
 
 const AdminSignup = () => {
     const [ details, setDetails ] = useState({
@@ -13,7 +15,7 @@ const AdminSignup = () => {
     })
     
     const [show, setShow] = useState(false)
-
+    const dispatch = useDispatch();
     const toast = useToast()
     
     const handleClick = () => setShow(!show);
@@ -30,7 +32,8 @@ const AdminSignup = () => {
         try {
             let res = await axios.post(`${config.API_URL}/api/auth/signup`, {...details, role: 'admin'});
             if(res.data.success){
-                localStorage.setItem('token', res.data.token);
+                const token = res.data.token;
+                dispatch(login(token));
                 toast({
                     title: res.data.message,
                     position: 'top',

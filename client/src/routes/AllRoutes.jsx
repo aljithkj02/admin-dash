@@ -5,14 +5,10 @@ import { Login, Signup, Dashboard, AdminSignup } from '../pages'
 const AllRoutes = () => {
   return (
     <Routes>
-        {/* <Route path="/" element={  } >
-            <Route path="" element={ <Home /> }/>
-            <Route path="profile/:id" element={ <Profile /> }/>
-        </Route> */}
         <Route path="/login" element={ <Login /> } />
         <Route path="/signup" element={ <Signup /> } />
         <Route path="/admin-signup" element={ <AdminSignup /> } />
-        <Route path="/dashboard/:role" element={ <Dashboard /> } />
+        <Route path="/dashboard" element={ <Dashboard /> } />
     </Routes>
   )
 }
