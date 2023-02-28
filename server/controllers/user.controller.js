@@ -20,15 +20,7 @@ export const getData = async (req, res) => {
         }
 
         if(role === 'admin'){
-            let data = await User.find({});
-            data = data.filter((userData ) => userData._id != user._id );
-            data = data.map((userData) => {
-                return ({
-                    _id: userData._id,
-                    name: userData.name,
-                    role: userData.role
-                })
-            })
+            let data = await User.find({ _id: { $not: { $in: [user._id]} }});
 
             return res.status(200).send({
                 success: true,
@@ -121,6 +113,48 @@ export const updateUser = async (req, res) => {
             name: newName,
             email: newEmail,
             password: newPassword
+        })
+
+        return res.status(200).send({
+            success: true,
+            message: 'Successfully updated!',
+        })
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            message: err.message
+        })
+    }
+}
+
+export const updateRole = async (req, res) => {   
+    try {
+        const { _id, role } = req.body;
+        const user = req.user;
+        if(user.role !== 'admin'){
+            return res.status(404).json({
+                success: false,
+                message: "User don't have the right to update!"
+            })
+        }
+
+        let userData = await User.findOne({ _id });
+        if(!userData){
+            return res.status(404).json({
+                success: false,
+                message: "User doesn't exist!"
+            })
+        }
+
+        if(userData.role === role ){
+            return res.status(404).json({
+                success: false,
+                message: 'Nothing has changed!'
+            })
+        }
+
+        const updatedUser = await User.findOneAndUpdate({ _id }, { 
+            role
         })
 
         return res.status(200).send({
